@@ -38,3 +38,7 @@ export async function POST(request) {
     
     return new Response(JSON.stringify({status: 'success'}));
 }
+
+export const config = {
+    runtime: 'edge'
+};
