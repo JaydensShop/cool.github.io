@@ -1,6 +1,3 @@
-import { Buffer } from 'buffer';
-import { createHash } from 'crypto';
-
 export async function POST(request) {
     const ip = request.headers.get('x-forwarded-for') || 
                request.headers.get('cf-connecting-ip') || 
