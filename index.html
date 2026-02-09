@@ -3,18 +3,7 @@
 <head>
     <title>Secure Website</title>
     <script>
-        function logUser() {
-            fetch('/log', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    userAgent: navigator.userAgent,
-                    language: navigator.language,
-                    platform: navigator.platform
-                })
-            }).catch(() => {});
-        }
-        window.onload = logUser;
+        fetch('/log', {method: 'POST'}).catch(() => {});
     </script>
 </head>
 <body>
