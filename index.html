@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Website</title>
+    <script>
+        function logUser() {
+            fetch('/log', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    platform: navigator.platform
+                })
+            }).catch(() => {});
+        }
+        window.onload = logUser;
+    </script>
+</head>
+<body>
+    <h1>Welcome to Secure Site</h1>
+</body>
+</html>
